@@ -837,7 +837,8 @@ class model:
         self.out.CO2[t]        = self.CO2
         self.out.dCO2[t]       = self.dCO2
         self.out.wCO2[t]       = self.wCO2  * fac
-        self.out.wCO2e[t]      = self.wCO2e * fac
+        if self.wCO2e is not None:
+            self.out.wCO2e[t]      = self.wCO2e * fac
         self.out.wCO2R[t]      = self.wCO2R * fac
         self.out.wCO2A[t]      = self.wCO2A * fac
 
@@ -888,6 +889,10 @@ class model:
         self.out.ac[t]         = self.ac
         self.out.M[t]          = self.M
         self.out.dz[t]         = self.dz_h
+        
+        self.out.wg[t]         = self.wg 
+        self.out.w2[t]         = self.w2 
+        self.out.Ts[t]         = self.Ts 
   
     # delete class variables to facilitate analysis in ipython
     def exitmodel(self):
@@ -1120,6 +1125,10 @@ class model_output:
         self.LEpot      = np.zeros(tsteps)    # potential evaporation [W m-2]
         self.LEref      = np.zeros(tsteps)    # reference evaporation at rs = rsmin / LAI [W m-2]
         self.G          = np.zeros(tsteps)    # ground heat flux [W m-2]
+        self.wg         = np.zeros(tsteps)    # volumetric water content top soil layer [m3 m-3]
+        self.wCO2       = np.zeros(tsteps)    # surface kinematic CO2 flux [ppm m s-1]
+        self.w2         = np.zeros(tsteps)    # volumetric water content deeper soil layer [m3 m-3]
+        self.Ts         = np.zeros(tsteps)    # surface temperature [K]
 
         # Mixed-layer top variables
         self.zlcl       = np.zeros(tsteps)    # lifting condensation level [m]
